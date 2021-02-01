@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_resultado"
+        android:icon="@drawable/resultados"
+        android:title="Resultados"/>
+    <item
+        android:id="@+id/menu_historial"
+        android:icon="@drawable/historial"
+        android:title="Historial"/>
+    <item
+        android:id="@+id/menu_perfil"
+        android:icon="@drawable/perfil"
+        android:title="Perfil"/>
+</menu>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/registro"
+    tools:context=".Registro1"
+    android:layout_gravity="center"
+    android:layout_centerHorizontal="true">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="333dp"
+        android:layout_height="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009"
+        app:srcCompat="@drawable/letras" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_centerVertical="true"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
+        <RelativeLayout
+            android:id="@+id/content2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+            <TextView
+                android:gravity="center"
+                android:text="Datos personales"
+                android:textSize="20sp"
+                android:textColor="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/nombres"
+                    android:layout_marginTop="40dp"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:hint="@string/Nombres"
+                    android:textSize="20sp"/>
+                <EditText
+                    android:id="@+id/apellidos"
+                    android:hint="@string/Apellidos"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/nacimiento"
+                    android:hint="@string/Fecha_nacimiento"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:layout_marginTop="10dp"
+                    android:inputType="date"
+                    android:gravity="center"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"/>
+
+                <Button
+                    android:id="@+id/siguiente"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/redondearbordes"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Siguiente"
+                    android:textColor="#fff"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/barra"
+        android:layout_below="@+id/card"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="5dp"
+        android:background="@color/colorAccent"/>
+    <TextView
+        android:layout_below="@+id/card"
+        android:gravity="center"
+        android:text="Paso"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_below="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/first"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="43dp"
+            android:background="@drawable/boton_redondo_naranja"
+            android:layout_width="40dp"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_marginLeft="120dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:layout_marginTop="43dp"
+            android:background="@drawable/boton_redondo_blanco"
+            android:layout_width="40dp"
+            android:gravity="center"
+            android:text="2"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginRight="120dp"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

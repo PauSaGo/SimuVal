@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_lista"
+        android:icon="@drawable/lista_normal"
+        android:title="Lista docentes"/>
+    <item
+        android:id="@+id/menu_revisar"
+        android:icon="@drawable/revision_normal"
+        android:title="Lista Reactivos"/>
+    <item
+        android:id="@+id/menu_perfil"
+        android:icon="@drawable/perfil"
+        android:title="Perfil"/>
+</menu>

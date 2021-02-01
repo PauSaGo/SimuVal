@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">SIMUVAL</string>
+    <string name="Bienvenida">Bienvenidos a SimuGuide</string>
+    <string name="Cuenta">Número de cuenta</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="Nombres">Nombres</string>
+    <string name="Apellidos">Apellidos</string>
+    <string name="Fecha_nacimiento">Fecha de nacimiento</string>
+    <string name="Facultad">Facultad</string>
+    <string name="Carrera">Carrera</string>
+    <string name="Semestre">Semestre</string>
+    <string name="Confirmar">Confirmar contraseña</string>
+    <string name="Correo">Correo ucol</string>
+    <string name="Iniciar_sesion">Iniciar Sesión</string>
+    <string name="Registrar">¿No tienes una cuenta? Regístrate</string>
+    <string name="Propuesta">Propuesto por:</string>
+    <string name="Tipo">Tipo de pregunta:</string>
+    <string name="Area">Área:</string>
+    <string name="SubArea">Subarea:</string>
+    <string name="PreguntaPlanteada">Pregunta planteada:</string>
+    <string name="Comentario">Hacer un comentario</string>
+    <string name="Mantener">Mantener sesión iniciada</string>
+    <string name="cerrar">Cerrar sesión</string>
+
+    <string-array name="facultades">
+        <item>FIE</item>
+        <item>FCAM</item>
+        <item>FACIMAR</item>
+    </string-array>
+
+    <string-array name="carreras">
+        <item>Ing. Sistemas</item>
+        <item>Ing. Mecatronica</item>
+        <item>Ing. Tecnologías</item>
+        <item>Ing. Mecánico</item>
+    </string-array>
+
+    <string-array name="semestres">
+        <item>1er</item>
+        <item>2do</item>
+        <item>3er</item>
+        <item>4to</item>
+        <item>5to</item>
+        <item>6to</item>
+        <item>7mo</item>
+        <item>8vo</item>
+        <item>9no</item>
+    </string-array>
+</resources>
