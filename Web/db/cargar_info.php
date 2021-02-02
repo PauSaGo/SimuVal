@@ -29,23 +29,24 @@
         INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
         INNER JOIN usuarios as u ON u.id = p.id_alta WHERE p.id_usuario = ".$_SESSION['id']."");
 
-        if (isset($_GET['pageno'])) {
-            $pageno = $_GET['pageno'];
-        } else {
-            $pageno = 1;
-        }
-        $no_of_records_per_page = 10;
-        $offset = ($pageno-1) * $no_of_records_per_page;
+        $no_of_records_per_page = 5;
+        $start = ($_GET['pagina'] - 1) * $no_of_records_per_page;
 
-        $total_pages_sql = "SELECT COUNT(*) FROM preguntas WHERE id_usuario = ".$_SESSION['id']."";
-        $result = mysqli_query($conn,$total_pages_sql);
+        //$total_pages_sql = "SELECT COUNT(*) FROM preguntas WHERE id_usuario = ".$_SESSION['id']."";
+        $total_pages_sql = "SELECT COUNT(*) FROM preguntas";
+        $result = mysqli_query($conexion,$total_pages_sql);
         $total_rows = mysqli_fetch_array($result)[0];
         $total_pages = ceil($total_rows / $no_of_records_per_page);
         
+        /*$myexamen = mysqli_query($conexion, "SELECT p.id,p.nombre, p.imagen, p.tipo, p.justificacion, p.estado, p.f_registro, e.nombre as examen, 
+        a.nombre as area, s.nombre as subarea, GROUP_CONCAT(DISTINCT r.nombre ORDER BY r.nombre ASC SEPARATOR ', *') as respuestas, 
+        GROUP_CONCAT(DISTINCT r.justificacion ORDER BY r.justificacion ASC SEPARATOR ', *') as justresp FROM preguntas as p 
+        INNER JOIN examen as e ON e.id = p.id_examen INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
+        INNER JOIN respuestas as r ON r.id_pregunta = p.id WHERE p.id_usuario = ".$_SESSION['id']." GROUP BY P.nombre LIMIT ".$offset.", ".$no_of_records_per_page." ");*/
         $myexamen = mysqli_query($conexion, "SELECT p.id,p.nombre, p.imagen, p.tipo, p.justificacion, p.estado, p.f_registro, e.nombre as examen, 
         a.nombre as area, s.nombre as subarea, GROUP_CONCAT(DISTINCT r.nombre ORDER BY r.nombre ASC SEPARATOR ', *') as respuestas, 
         GROUP_CONCAT(DISTINCT r.justificacion ORDER BY r.justificacion ASC SEPARATOR ', *') as justresp FROM preguntas as p 
         INNER JOIN examen as e ON e.id = p.id_examen INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
-        INNER JOIN respuestas as r ON r.id_pregunta = p.id WHERE p.id_usuario = ".$_SESSION['id']." GROUP BY P.nombre LIMIT ".$offset.", ".$no_of_records_per_page." ");
+        INNER JOIN respuestas as r ON r.id_pregunta = p.id WHERE p.id_usuario NOT IN (".$_SESSION['id'].") GROUP BY p.id LIMIT ".$start.", ".$no_of_records_per_page." ");
     }
 ?>

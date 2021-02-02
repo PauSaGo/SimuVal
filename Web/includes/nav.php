@@ -6,7 +6,7 @@
     <li><a href="manual.php">Manual</a></li>
     <li><a href="foro.php">Foro</a></li>
     <?php if($_SESSION['tipo'] == 1): ?>
-        <li><a href="examen.php">Nuevo examen</a></li>
+        <li><a href="crearexamen.php">Nuevo examen</a></li>
         <li><a href="historial.php">Historial</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 2): ?>
@@ -14,7 +14,8 @@
         <li><a href="myreactivo.php">Mis preguntas</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 3): ?>
-        <li><a href="checkreactivo.php">Revisar preguntas</a></li>
+        <li><a href="newreactivo.php">Redactar nueva pregunta</a></li>
+        <li><a href="checkreactivo.php?pagina=1">Revisar preguntas</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 1 || $_SESSION['tipo'] == 2 || $_SESSION['tipo'] == 3): ?>
         <li><a href="perfil.php">perfil</a></li>

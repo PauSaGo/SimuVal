@@ -1,8 +1,3 @@
-<style>
-option {
-    text-align: center;
-}
-</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,31 +6,48 @@ option {
     <?php 
         include('includes/head.php');
         include('db/cargar_info.php');
-        include('db/usuarios.php');
+        include_once('db/subirpregunta.php');
     ?>
 </head>
 <body>
     <?php include('includes/nav.php') ?>
-
 <div class="container w3-center">
     <h2>Formulario de crear nuevo reactivo</h2>
         <form class="w3-container" action="db/usuarios.php" method="POST" style="width:60%;margin:auto;text-align:center;">
             <label><b>Preg&uacute;nta</b></label>
-            <textarea type="text" name="pregunta" id="pregunta"></textarea>
+            <textarea type="text" name="pregunta" id="pregunta" required></textarea>
             <label><b>Justificaci&oacute;n</b></label>
-            <textarea type="text" name="justificacion" id="justificacion"></textarea>
+            <textarea type="text" name="justificacion" id="justificacion" required></textarea>
             <label><b>adjuntar una imagen (opcional)</b></label>
             <input class="w3-input w3-center" style="margin-bottom:10px;" type="file" name="imagen" id="imagen">
             <label><b>Tipo de pregunta</b></label><br>
-            <select class="w3-select" style="width:150px;height:40px;" name="tipo" id="tipo">
+            <select class="w3-select" style="width:150px;height:40px;" name="tipo" id="tipo" required>
                 <option value="1">Abierto</option>
                 <option value="2">Opci&oacute;n m&uacute;ltiple</option>
                 <option value="3">Relacional</option>
+            </select>
+            <label><b>Examen</b></label><br>
+            <select class="w3-select" name="examen" id="examen" style="width:350px;height:40px;" required>
+                <?php while($examen = mysqli_fetch_array($tipoexamen)){?>
+                    <option class="w3-center" value="<?php echo $examen['id']?>"><?php echo $examen['nombre']?></option>
+                <?php }?>
+            </select><br>
+            <label><b>&Aacute;rea</b></label>
+            <select class="w3-select" name="area" id="area" required>
+            <?php while($areas = mysqli_fetch_array($area)){?>
+                    <option value="<?php echo $areas['id']?>"><?php echo $areas['nombre']?></option>
+                <?php }?>
+            </select>
+            <label><b>Subarea</b></label>
+            <select class="w3-select" name="subarea" id="subarea" required>
+                <?php while($subareas = mysqli_fetch_array($subarea)){?>
+                    <option value="<?php echo $subareas['id']?>"><?php echo $subareas['nombre']?></option>
+                <?php }?>
             </select><br>
             <label style="margin-left:10px;"><b>Respuesta correcta</b></label>
-            <input class="w3-input" type="text" style="display:inline-block;width:auto;" required>
+            <input id="respuesta1" class="w3-input" type="text" style="display:inline-block;width:auto;" required>
             <label><b>Justificacion</b></label>
-            <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp2" id="justresp2" required><br>
+            <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp1" id="justresp1" required><br>
             <label><b>Respuesta incorrecta</b></label>
 			<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta2" id="respuesta2" required>
 			<label><b>Justificacion</b></label>
@@ -47,30 +59,78 @@ option {
             <label><b>Respuesta incorrecta</b></label>
 			<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta4" id="respuesta4" required>
 			<label><b>Justificacion</b></label>
-            <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp4" id="justresp4" required><br>
-            <label><b>Examen</b></label><br>
-            <select class="w3-select" name="examen" id="examen" style="width:350px;height:40px;">
-                <?php while($examen = mysqli_fetch_array($tipoexamen)){?>
-                    <option class="w3-center" value="<?php echo $examen['id']?>"><?php echo $examen['nombre']?></option>
-                <?php }?>
-            </select><br>
-            <label><b>&Aacute;rea</b></label>
-            <select class="w3-select" name="area" id="area">
-            <?php while($areas = mysqli_fetch_array($area)){?>
-                    <option value="<?php echo $areas['id']?>"><?php echo $areas['nombre']?></option>
-                <?php }?>
-            </select>
-            <label><b>Subarea</b></label>
-            <select class="w3-select" name="subarea" id="subarea">
-                <?php while($subareas = mysqli_fetch_array($subarea)){?>
-                    <option value="<?php echo $subareas['id']?>"><?php echo $subareas['nombre']?></option>
-                <?php }?>
-            </select>                           
-        <button class="w3-button w3-green" name="btn_enviar" id="btn_enviar" type="submit">Enviar</button></center>        
+            <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp4" id="justresp4" required><br>                          
+            <button class="w3-button w3-green" id="btn_pregunta" name="btn_pregunta" type="button">Enviar</button>
     </form>
 </div>
-
+<script>
+    $(document).ready(function(){
+        $('#btn_pregunta').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: 'db/subirpregunta.php',
+                data: {
+                    success: 'success',
+                    pregunta: $('#pregunta').val(),
+                    justificacion: $('#justificacion').val(),
+                    tipo: $('#tipo').val(),
+                    examen: $('#examen').val(),
+                    area: $('#area').val(),
+                    subarea: $('#subarea').val(),
+                    respuesta1: $('#respuesta1').val(),
+                    respuesta2: $('#respuesta2').val(),
+                    respuesta3: $('#respuesta3').val(),
+                    respuesta4: $('#respuesta4').val(),
+                    justresp1: $('#justresp1').val(),
+                    justresp2: $('#justresp2').val(),
+                    justresp3: $('#justresp3').val(),
+                    justresp4: $('#justresp4').val(),
+                },
+                cache: true,
+                success:function(result){
+                    console.log(result);
+                    if(result == "success"){
+                        setTimeout(() => { window.location="newreactivo.php"; }, 2000);
+                    }
+                }
+            })
+        })
+    })
+            /*
+            if( $('#pregunta').val() == '' || $('#justificacion').val() == null || $('#tipo').val() == null || $('#examen').val() == null ||
+            $('#area').val() == null || $('#subarea').val() == null || $('#respuesta1').val() == '' || $('#respuesta2').val() == null ||
+            $('#respuesta3').val() == null || $('#respuesta4').val() == null || $('#justresp1').val() == null || $('#justresp2').val() == null ||
+            $('#justresp3').val() == null || $('#justresp4').val() == null){
+                $('#pregunta').css("border", "1px solid #F14B4B");
+                $('#justificacion').css("border", "1px solid #F14B4B");
+                $('#tipo').css("border", "1px solid #F14B4B");
+                $('#examen').css("border", "1px solid #F14B4B");
+                $('#area').css("border", "1px solid #F14B4B");
+                $('#subarea').css("border", "1px solid #F14B4B");
+                $('#respuesta1').css("border", "1px solid #F14B4B");
+                $('#respuesta2').css("border", "1px solid #F14B4B");
+                $('#respuesta3').css("border", "1px solid #F14B4B");
+                $('#respuesta4').css("border", "1px solid #F14B4B");
+                $('#justresp1').css("border", "1px solid #F14B4B");
+                $('#justresp2').css("border", "1px solid #F14B4B");
+                $('#justresp3').css("border", "1px solid #F14B4B");
+                $('#justresp4').css("border", "1px solid #F14B4B");
+            }else{
+                $('#pregunta').css("border", "1px solid #66bb6a");
+                $('#justificacion').css("border", "1px solid #66bb6a");
+                $('#tipo').css("border", "1px solid #66bb6a");
+                $('#examen').css("border", "1px solid #66bb6a");
+                $('#area').css("border", "1px solid #66bb6a");
+                $('#subarea').css("border", "1px solid #66bb6a");
+                $('#respuesta1').css("border", "1px solid #66bb6a");
+                $('#respuesta2').css("border", "1px solid #66bb6a");
+                $('#respuesta3').css("border", "1px solid #66bb6a");
+                $('#respuesta4').css("border", "1px solid #66bb6a");
+                $('#justresp1').css("border", "1px solid #66bb6a");
+                $('#justresp2').css("border", "1px solid #66bb6a");
+                $('#justresp3').css("border", "1px solid #66bb6a");
+                $('#justresp4').css("border", "1px solid #66bb6a");
+            }*/
+</script>
 </body>
 </html>
-<script>
-</script>

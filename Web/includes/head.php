@@ -8,5 +8,5 @@
 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link type="text/css" rel="stylesheet" href="css/mycss.css"  media="screen,projection"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.13.1/sweetalert2.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.13.1/sweetalert2.min.js"></script>

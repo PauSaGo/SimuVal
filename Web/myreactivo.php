@@ -29,25 +29,40 @@
             		</tr>
             	</thead>
             	<tbody>
-					<?php while($row = mysqli_fetch_array($mypregunta)) {
-                        if($row == null){
-                         echo '<h4>No se encontraron datos</h4>'   ;
-                        }
-                        ?>
-            		<tr>
-                        <td><?php echo $row['nombre']?></td>
-                        <td><?php echo $row['imagen']?></td>
-                        <td><?php echo $row['tipo']?></td>
-                        <td><?php echo $row['examen']?></td>
-                        <td><?php echo $row['area']?></td>
-						<td><?php echo $row['subareas']?></td>
-                        <td><?php echo $row['justificacion']?></td>
-                        <td><?php echo $row['comentario']?></td>
-                        <td><?php echo $row['estado']?></td>  
-                        <td><?php echo $row['f_registro']?></td>              	
-                        <td><?php echo $row['academico']?></td>
-            		</tr>
-            			<?php } ?>
+                    <?php 
+                        if(mysqli_num_rows($mypregunta)>0){
+                            while($row = mysqli_fetch_array($mypregunta)) {
+                    ?>
+            		            <tr>
+                                    <td><?php echo $row['nombre']?></td>
+                                    <td><?php echo $row['imagen']?></td>
+                                    <td><?php echo $row['tipo']?></td>
+                                    <td><?php echo $row['examen']?></td>
+                                    <td><?php echo $row['area']?></td>
+					            	<td><?php echo $row['subareas']?></td>
+                                    <td><?php echo $row['justificacion']?></td>
+                                    <td><?php echo $row['comentario']?></td>
+                                    <td><?php echo $row['estado']?></td>  
+                                    <td><?php echo $row['f_registro']?></td>              	
+                                    <td><?php echo $row['academico']?></td>
+            		            </tr>
+                    <?php   }
+                        }else{
+                    ?>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+					            <td><center>No hay datos</center></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>  
+                                <td></td>              	
+                                <td></td>
+            		        </tr>
+                    <?php }?>
             	</tbody>
             </table>
 		</div>

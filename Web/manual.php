@@ -22,7 +22,7 @@
                 </center>
                 <p>En este apartado el alumno podrá navegar y realizar las siguientes actividades:</p>
                 <ul class="w3-ul" style="background:#fff;">
-                <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Realizar Examen.</li><!--Por desarrollar-->
+                <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Realizar Examen.</li>
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial y resultado.</li>
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Participar en el foro.</li>
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Acceder al manual.</li>
@@ -36,7 +36,7 @@
                     <ul class="w3-ul" style="background:#fff;">
                         <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Formular reactivos.</li>
                         <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial y estado del reactivo.</li>
-                        <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar ex&aacute;.</li><!--Por desarrollar-->
+                        <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar ex&aacute;men.</li>
                         <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Acceder al manual.</li>
                         <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Participar en el foro.</li>
                     </ul>
@@ -54,7 +54,7 @@
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar reactivos pendientes.</li>
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial de reactivos.</li>
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Registrar docentes o academicos.</li>
-                    <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar ex&eacute;men.</li><!--Por desarrollar-->
+                    <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar ex&eacute;men.</li>
                 </ul>
             </div>
         </div>

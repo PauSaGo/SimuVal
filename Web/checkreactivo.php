@@ -4,62 +4,19 @@
     <meta charset="UTF-8">
     <title>Revisar preguntas | Simuval</title>
     <?php 
-        include('includes/head.php');
-        include('db/cargar_info.php');
+		include('includes/head.php');
+		include('db/cargar_info.php');
+		
+		if(!$_GET){
+			header('Location:checkreactivo.php?pagina=1');
+		}
+
+		$array = ['a','b','c','d'];
+		$i=0;
     ?>
 </head>
 <body>
 	<?php include('includes/nav.php') ?>
-	
-<div id="modal_editar_pregunta" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:800px">
-        <form class="w3-container" action="index.php" method="POST">
-            <div class="w3-section">
-                <div class="w3-row w3-center">
-                   <h2>Editar pregunta</h2>
-                    <div class="w3-col s12 m12 l12">
-                        <label><b>Examen</b></label>
-                        <input  class="w3-input" type="text" name="examne" id="examen" required>
-                        <label><b>Pregunta</b></label>
-                        <input  class="w3-input" type="text" name="pregunta" id="pregunta" required>
-                        <label><b>Tipo de pregunta</b></label>
-                        <input  class="w3-input" type="text" name="tipo" id="tipo" required>
-                        <label><b>Justificacion de pregunta</b></label>
-                        <input  class="w3-input" type="text" name="justificacion" id="justificacion" required>
-						<label><b>Respuesta 1</b></label>
-						<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta1" id="respuesta1" required>
-						<label><b>Justificacion</b></label>
-                        <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp1" id="justresp1" required>
-						<label><b>Respuesta2</b></label>
-						<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta2" id="respuesta2" required>
-						<label><b>Justificacion</b></label>
-                        <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp2" id="justresp2" required>
-						<label><b>Respuesta3</b></label>
-						<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta3" id="respuesta3" required>
-						<label><b>Justificacion</b></label>
-                        <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp3" id="justresp3" required>
-						<label><b>Respuesta4</b></label>
-						<input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="respuesta4" id="respuesta4" required>                        
-						<label><b>Justificacion</b></label>
-                        <input  class="w3-input" style="display:inline-block;width:auto;" type="text" name="justresp4" id="justresp4" required><br>
-                        <label><b>Area</b></label>
-                        <input  class="w3-input" type="text" name="area" id="area" required>
-                        <label><b>Subarea</b></label>
-                        <input  class="w3-input" type="text" name="subarea" id="subarea" required>
-                        <label><b>Imagen</b></label>
-                        <input  class="w3-input" type="text" name="imagen" id="imagen" required>
-                        <label><b>Fecha publicada</b></label>
-                        <input  class="w3-input" type="text" name="registro" id="registro" required>
-                        <label><b>Estado</b></label>
-                        <input  class="w3-input" type="text" name="estado" id="estado" required>
-                    </div>                  
-                </div>
-                <center><button onclick="document.getElementById('modal_editar_pregunta').style.display='none'" type="button" class="w3-button w3-red">Cancelar</button>
-                <button class="w3-button w3-green" name="editar_pregunta" id="editar_pregunta" type="submit">Guardar</button></center>
-            </div>
-        </form>
-    </div>
-</div>
     <div class="container">
 	<h1><b>Revisar preguntas</b></h1>
 			<table class="w3-table w3-striped w3-bordered">
@@ -101,7 +58,14 @@
 						<td><?php echo $row['subarea']?></td>
 						<td><?php echo $row['imagen']?></td>
 						<td><?php echo $row['f_registro']?></td>
-						<td><?php echo $row['estado']?></td>
+						<td><?php if($row['estado'] == 1){
+							echo 'Aprobado';
+							}elseif($row['estado'] == 2){
+								echo 'Pendiente';
+							}elseif($row['estado'] == 3){
+								echo 'Rechazado';
+							}?></td>
+						<td class="w3-hide"><?php echo $row['id']?></td>
 						<td>
 							<button type="button" class="w3-btn">
 								<span class="material-icons">create</span>
@@ -115,7 +79,17 @@
             	</tbody>
             </table>
 
-			<!--<ul class="pagination">
+			<nav aria-label="Page navigation my-5">
+            	<ul class="pagination justify-content-center">
+            	  <li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">Previous</a></li>
+            	  <?php for($i=0;$i<$numero;$i++){?>
+            	      <li class="page-item <?php echo $_GET['pagina']==$i+1 ? 'active' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $i+1?>"><?php echo $i+1?></a></li>
+            	  <?php }?>
+            	  <li class="page-item <?php echo $_GET['pagina']>=$numero ? 'disabled' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']+1?>">Next</a></li>
+            	</ul>
+            </nav>
+
+			<!-- ESTE NOOO <ul class="pagination">
         		<li><a href="?pageno=1">First</a></li>
         		<li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
             		<a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
@@ -126,27 +100,48 @@
         		<li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     		</ul>-->
 
+			<div class="w3-bar">
+  				<a class="w3-button <?php echo $_GET['pagina']<=1 ? 'w3-disabled' : ''?>" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">&laquo;</a>
+					<?php for($i=0;$i<$total_pages;$i++){?>
+  						<a href="checkreactivo.php?pagina=<?php echo $i+1?>" class="w3-button <?php echo $_GET['pagina']==$i+1 ? 'w3-green' : ''?>"><?php echo $i+1?></a>
+					<?php }?>	  
+  				<a href="checkreactivo.php?pagina=<?php echo $_GET['pagina']+1?>" class="w3-button">&raquo;</a>
+			</div>
+
 		</div>
     </div>
 	<?php include('includes/modal.php'); ?>
 </body>
 </html>
 <script>
+	//Funcion para el click Esc cierre el modal
+	$(document).keyup(function(e) {
+	  if(e.keyCode === 27){ 
+		document.getElementById('modal_editar_pregunta').style.display='none';
+	  }
+	});
+
 	$(document).ready(function(){
+		//Funcion para el click de accion para abrir el modal para aprobar o rechazar la pregunta
 		$('.w3-btn').on('click',function(){
+			//Hacemos aparecer el modal editar pregunta
 			document.getElementById('modal_editar_pregunta').style.display='block';
 
+			//Hacemos un recorrido hasta el final de la etiqueta 'tr'
 			$tr = $(this).closest('tr');
 
+			//Obtenemos todos los texto de la etiqueta 'td'
 			var data = $tr.children("td").map(function(){
 				return $(this).text();
 			}).get();
 
+			//Empezamos a parsear(acomodar) los datos con sus respectivos inputs
 			$('#examen').val(data[0]);
 			$('#pregunta').val(data[1]);
 			$('#tipo').val(data[2]);
 			$('#justificacion').val(data[3]);
 			//$('#respuesta').val(data[4]);
+			//Separamos los datos que estan marcados por el punto y asterisco y cada dato lo ponemos con sus respectivos inputs, en este caso separamos cada pregunta
 			var resp = data[4].split(', *');
 			var resp0 = dataempty(resp[0]);
 			var resp1 = dataempty(resp[1]);
@@ -158,6 +153,7 @@
 			$('#respuesta4').val(resp3);
 
 			//$('#justresp').val(data[5]);
+			//Hacemos lo mismo que las preguntas pero ahora con las justificaciones de cada pregunta
 			var just = data[5].split(', *');
 			var just0 = dataempty(just[0]);
 			var just1 = dataempty(just[1]);
@@ -172,11 +168,35 @@
 			$('#subarea').val(data[7]);
 			$('#imagen').val(data[8]);
 			$('#registro').val(data[9]);
-			var estado = estados(data[10]);
-			$('#estado').val(estado);
+			var estado = (data[10]);
+			//$('#estado').val(estado);
+			//Obtenemos el valor del estado y dependiendo del estado es el primero en la fina para que aparezca el estado que esta y el usuario decida cambiarlo o no
+			if(estado=="Aprobado"){
+				//Removemos las opciones que tuvo con anterioridad y agregamos las nuevas
+				$("#estado option").remove();
+				//Aqui comenzamos agregarlos
+				$('#estado').append($('<option>').val('1').text('Aprobado'));
+				$('#estado').append($('<option>').val('2').text('Pendiente'));
+				$('#estado').append($('<option>').val('3').text('Rechazado'));
+			}else if(estado=="Pendiente"){
+				$("#estado option").remove();
+
+				$('#estado').append($('<option>').val('2').text('Pendiente'));
+				$('#estado').append($('<option>').val('1').text('Aprobado'));
+				$('#estado').append($('<option>').val('3').text('Rechazado'));
+			}else if(estado=="Rechazado"){
+				$("#estado option").remove();
+
+				$('#estado').append($('<option>').val('3').text('Rechazado'));
+				$('#estado').append($('<option>').val('1').text('Aprobado'));
+				$('#estado').append($('<option>').val('2').text('Pendiente'));
+			}
+			//Esto nos sirve para identificar el id de cada pregunta y poderlo actualizarlo si el usuario hizo algún cambio.
+			$('#idpregunta').val(data[11]);
 		
 		});
 
+		//Funcion para saber si existe algun dato o no
 		function dataempty(data) {
 			if(data == null) {
 				data = 'No hay dato';
@@ -186,6 +206,7 @@
 			}
 		}
 
+		//Funcion para cambiar el valor numero por un string relacionado al estado
 		function estados(estado) {
 			if(estado == '1'){
 				estado = 'Aprobado';
