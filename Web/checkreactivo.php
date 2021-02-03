@@ -1,3 +1,10 @@
+<style>
+table{
+	border: 1px solid #FF9100;
+	border-radius: 10px;
+}
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

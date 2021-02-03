@@ -1,3 +1,9 @@
+<style>
+table{
+	border: 1px solid #FF9100;
+}
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +18,7 @@
     <?php include('includes/nav.php') ?>
     <div class="container">
 	<h1><b>Historial</b></h1>
-			<table class="w3-table w3-striped w3-bordered">
+			<table class="w3-table w3-bordered">
             	<thead>
             		<tr>
               			<th>Examen</th>

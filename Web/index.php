@@ -4,6 +4,18 @@
     error_reporting(0);
 ?>
 
+<style>
+    .center-div{
+        margin: auto;
+        align-items: center;
+	    text-align: center;
+        margin-left: 20%;
+    }
+    .app{
+        margin-top: 20px;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,6 +76,18 @@
                     <div class="w3-col" style="width:50%">
                         <h4><b>Registrarse</b></h4>
                         <button onclick="document.getElementById('modal_registro').style.display='block'" class="w3-button mylightgreen w3-large">Clic aquí</button>
+                    </div>
+                </div>
+            </div>
+            <center><h3 class="app"><b>Aplicacion disponible</b></h3></center>
+            <div class="w3-half center-div w3-container">
+                <div class="w3-row">
+                    <div class="w3-col" style="width:50%;">
+                        <img style="width:100%" src="https://img.icons8.com/bubbles/100/000000/download.png"/>
+                    </div>
+                    <div class="w3-col" style="width:50%">
+                        <h4><b>Descargar App</b></h4>
+                        <button onclick="" class="w3-button mylightgreen w3-large">Clic aquí</button>
                     </div>
                 </div>
             </div>

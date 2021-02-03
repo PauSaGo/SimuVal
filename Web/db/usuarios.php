@@ -1,6 +1,7 @@
 <?php
     require("conexion.php");
     //require("cargar_info.php");
+    session_start();
 
     if(isset($_POST['iniciar_sesion'])){
         $pass = $_POST['pass'];
@@ -176,5 +177,16 @@
         $estado = $_POST['estado'];
 
         mysqli_query("INSERT INTO ")*/
+    }
+
+    if(isset($_POST['mensaje'])){
+        $mensaje = $_POST['mensaje'];
+        $numero = $_POST['numero'];
+
+        if($mensaje == "success"){
+            $_SESSION['numpre'] = $numero;
+            $query = mysqli_query($conexion,"SELECT * FROM preguntas WHERE estado = 1 ORDER BY RAND() LIMIT ".$_SESSION['numpre']."");
+            echo  'success';
+        }
     }
 ?>

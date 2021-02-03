@@ -21,7 +21,7 @@ li{
     <?php include('includes/nav.php') ?>
 
     <div class="container w3-center">
-    <form class="w3-hide" method="POST">
+    <form method="POST">
             <div class="w3-section">
                 <div class="w3-row w3-center">
                    <h2>Formulario de crear nuevo examen</h2>
@@ -45,22 +45,29 @@ li{
                             <?php }?>
                         </select>
                         <label><b>Cantidad de preguntas</b></label>
-                        <input style="width:100px;display: block !important;margin:auto;margin-top:10px;" class="w3-input" type="text" name="numero" id="numero" required>                    
-
+                        <input style="width:100px;display: block !important;margin:auto;margin-top:10px;" class="w3-input" type="text" name="numero" id="numero" required>    
                     </div>                  
                 </div>                
                 <button class="w3-button w3-green" style="margin-top:30px;" name="empezar_examen" id="empezar_examen" type="button">Empezar</button></center>
             </div>
         </form>
 
-        <section class="">
-            <h2>Pregunta</h2>
+        <section class="w3-hide">
+            <?php
+                include('db/generarexamen.php');
+                if(mysqli_num_rows($query) > 0){
+                    while($row = mysqli_fetch_array($query)){
+            ?>
+            <h3><?php echo $row['nombre'];?></h3>
+            <?php }
+            }?>
+            
             <div class="w3-section">
                 <div class="w3-row w3-center">
-                    <li><input type="radio" name="respuesta" id="">Respuesta1</li>
-                    <li><input type="radio" name="respuesta" id="">Respuesta2</li>
-                    <li><input type="radio" name="respuesta" id="">Respuesta3</li>
-                    <li><input type="radio" name="respuesta" id="">Respuesta4</li>
+                    <li><input type="radio" name="respuesta" id="respuesta1">Respuesta1</li>
+                    <li><input type="radio" name="respuesta" id="respuesta2">Respuesta2</li>
+                    <li><input type="radio" name="respuesta" id="respuesta3">Respuesta3</li>
+                    <li><input type="radio" name="respuesta" id="respuesta4">Respuesta4</li>
                 </div>
                 <button class="w3-button w3-green" style="margin-top:20px;" name="anterior" id="anterior" type="button">Anterior</button></center>
                 <button class="w3-button w3-green" style="margin-top:20px;" name="siguiente" id="siguiente" type="button">Siguiente</button></center>
@@ -70,19 +77,30 @@ li{
 <script>
 $(document).ready(function(){
     $('#empezar_examen').click(function(){
+        //$('form').addClass('w3-hide');
+        //$('section').removeClass('w3-hide');
+
         $.ajax({
             type: 'POST',
             url: 'db/generarexamen.php',
             data: {
+                mensaje: 'success',
                 examen: $('#examen').val(),
                 area: $('#area').val(),
                 subarea: $('#subarea').val(),
                 numero: $('#numero').val()
             },
             success: function(result){
-                
+                console.log(result);
+                if(result == result){
+                    $('form').addClass('w3-hide');
+                    $('section').removeClass('w3-hide');
+                }
             }
-        })
+        }) 
+    })
+
+    $('#siguiente').click(function(){
     })
 })
 </script>

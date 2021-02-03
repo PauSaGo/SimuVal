@@ -25,9 +25,8 @@
         $subarea = mysqli_query($conexion, "SELECT id, nombre FROM subareas WHERE id_alta IS NOT NULL AND estado = 1");
 
         $mypregunta = mysqli_query($conexion, "SELECT p.id,p.nombre, p.imagen, p.tipo, p.justificacion, p.comentario, p.estado, p.f_registro, e.nombre as examen, 
-        a.nombre as area, s.nombre as subarea, u.nombres as academico FROM preguntas as p INNER JOIN examen as e ON e.id = p.id_examen 
-        INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
-        INNER JOIN usuarios as u ON u.id = p.id_alta WHERE p.id_usuario = ".$_SESSION['id']."");
+        a.nombre as area, s.nombre as subarea FROM preguntas as p INNER JOIN examen as e ON e.id = p.id_examen 
+        INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea WHERE p.id_usuario = ".$_SESSION['id']."");
 
         $no_of_records_per_page = 5;
         $start = ($_GET['pagina'] - 1) * $no_of_records_per_page;
