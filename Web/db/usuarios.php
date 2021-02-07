@@ -9,16 +9,24 @@
 
         $query = mysqli_query($conexion,"SELECT * FROM usuarios WHERE no_cuenta = '".$no_cuenta."'");
         if(mysqli_num_rows($query) == 0){ //el numero de cuenta no existe en la db
-            echo '<script>sweetAlert("No registrado", "Este numero de cuenta no esta registrado", "error");</script>';
-            echo '<script>document.getElementById("modal_iniciar_sesion").style.display="block";</script>';
+            echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Este número de cuenta no esta registrado, Por favor registrate."});
+                </script>';
         }else if(mysqli_num_rows($query) == 1){   //  Contraseña incorrecta
             $row = mysqli_fetch_array($query);
             if($pass == $row['pass']){
                 $_SESSION['numero'] = $no_cuenta;
                 echo '<script> window.location="manual.php";</script>';               
             }else{
-                echo '<script>sweetAlert("Contraseña incorrecta", "La contraseña ingresada es incorrecta", "error");</script>';
-                echo '<script>document.getElementById("modal_iniciar_sesion").style.display="block";</script>';
+                echo '<script>
+                    Swal.fire({
+                    icon: "warning",
+                    title: "Incorrecto",
+                    text: "La contraseña es incorrecta, Por favor intente de nuevo."});
+                    </script>';
             }
         }
     }
@@ -63,17 +71,32 @@
         
         $query = mysqli_query($conexion,"SELECT * FROM usuarios WHERE no_cuenta = '".$no_cuenta."'");
         if(mysqli_num_rows($query) == 1){ 
-            echo '<script>swal("Ya registrado", "Este numero de cuenta ya esta registrado", "error");</script>';
-            echo '<script>document.getElementById("modal_registro").style.display="block";</script>';
+            echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "El número de cuenta ya esta registrado!"});
+                </script>';
+            /* solucion del modal
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function () {  
+                document.getElementById("modal_registro").style.display = "block";  
+            });
+            </script>';*/
         }else{
             $query = mysqli_query($conexion,"SELECT * FROM usuarios WHERE email = '".$email."'");
             if(mysqli_num_rows($query) == 1){ //el email no existe en la db
-                echo '<script>swal("Ya registrado", "Este correo ya esta registrado", "error");</script>';
-                echo '<script>document.getElementById("modal_registro").style.display="block";</script>';
+                echo '<script>Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Este correo ya esta registrado!"});</script>';
             }else{   
                 if($pass != $re_pass){
-                    echo '<script>swal("No coninciden", "Las contraseñas ingresadas no coinciden", "error");</script>';
-                    echo '<script>document.getElementById("modal_registro").style.display="block";</script>';
+                    echo '<script>Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "La contraseña no coinciden"});
+                        </script>';
                 }else{
                     if ($tipo == 1){ //si es estudianta
                         mysqli_query($conexion, "INSERT INTO usuarios (nombres,apellidos,f_nacimiento,facultad,carrera,semestre,no_cuenta,correo,tipo,pass) VALUES ('$nombres', '$apellido_p $apellido_m', '$f_nacimiento', '$facultad', '$carrera_1 $carrera_2 $carrera_3', '$semestre', '$no_cuenta' ,'$email','$tipo','$pass');");

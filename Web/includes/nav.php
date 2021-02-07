@@ -11,7 +11,7 @@
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 2): ?>
         <li><a href="newreactivo.php">Redactar nueva pregunta</a></li>
-        <li><a href="myreactivo.php">Mis preguntas</a></li>
+        <li><a href="myreactivo.php?pagina=1">Mis preguntas</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 3): ?>
         <li><a href="newreactivo.php">Redactar nueva pregunta</a></li>

@@ -11,8 +11,16 @@
 <body>
     <?php include('includes/nav.php') ?>
     <div class="container">
-        <h2><b>¡Hola! Bienvenido a SIMUVAL</b></h2>
-        <h4>SIMUVAL es un simulador/entrenador de exámenes de egreso en nivel superior.</h4>
+        <h2><b>¡Hola <?php if($_SESSION['nombres']){
+                if($_SESSION['tipo'] == 1){ $tipo = "Estudiante";}
+                if($_SESSION['tipo'] == 2){ $tipo = "Docente";}
+                if($_SESSION['tipo'] == 3){ $tipo = "Academico";}
+            echo $_SESSION['nombres'].". Estas en modo: ".$tipo."!<br>";}
+            else{
+                echo "!";
+            }?>
+        Bienvenido a SIMUVAL</b></h2>
+        <h4>SIMUVAL es un simulador/entrenador de ex&aacute;menes de egreso en nivel superior.</h4>
         <h5>Esta es una plataforma para todos, donde dependiendo tus necesidades encontraras la herramienta ideal para ti</h5>
         <div class="w3-row">
             <div class="w3-third w3-container">
@@ -20,10 +28,10 @@
                     <img src="https://img.icons8.com/bubbles/100/000000/student-male.png"/><br>
                     <h6><b>Estudiante</b></h6>
                 </center>
-                <p>En este apartado el alumno podrá navegar y realizar las siguientes actividades:</p>
+                <p>En este apartado el alumno podr&aacute; navegar y realizar las siguientes actividades:</p>
                 <ul class="w3-ul" style="background:#fff;">
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Realizar Examen.</li>
-                <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial y resultado.</li>
+                <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial y resultados.</li>
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Participar en el foro.</li>
                 <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Acceder al manual.</li>
                 </ul>
@@ -54,7 +62,7 @@
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar reactivos pendientes.</li>
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Consultar historial de reactivos.</li>
                     <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Registrar docentes o academicos.</li>
-                    <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar ex&eacute;men.</li>
+                    <li><span style="font-size:10px;" class="material-icons">brightness_1</span>Programar examen.</li>
                 </ul>
             </div>
         </div>

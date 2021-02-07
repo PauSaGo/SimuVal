@@ -5,7 +5,7 @@
                 <div class="w3-row w3-center">
                    <h2>Formulario de inicio de sesión</h2>
                     <div class="w3-col s12 m12 l12">
-                        <label><b>Numero de cuenta o trabajador</b></label>
+                        <label><b>Número de cuenta o trabajador</b></label>
                         <input class="w3-input" type="number" name="no_cuenta" id="no_cuenta" required>
                         <label><b>Contraseña</b></label>
                         <input class="w3-input" type="password" name="pass" id="pass" required>
@@ -99,10 +99,10 @@
                         <label for="carrera_1"><b>Carrera</b></label>
                         <select id="carrera_1" name="carrera_1">
                             <option value="" disabled selected> -Seleccione una carrera- </option>
-                            <option value="1">Ingeniero(a) en Sistemas Computacionales</option>
-                            <option value="2">Ingeniero(a) Mecánico Electricista</option>
+                            <option value="1">Ingeniería en Sistemas Computacionales</option>
+                            <option value="2">Ingeniería Mecánico Electricista</option>
                             <option value="3">Ingeniería en Software</option>
-                            <option value="4">Ingenierio(a) en Mecatrónica</option>
+                            <option value="4">Ingeniería en Mecatrónica</option>
                             <option value="5">Ingeniería en Tecnologías Electrónicas</option>
                             <option value="6">Ingeniería en Mecánica y Eléctrica</option>
                         </select>
@@ -155,7 +155,7 @@
                     </div>                  
                 </div>
                 <center><button onclick="document.getElementById('modal_comentario').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-                <button class="w3-button w3-green" name="enviar_r" id="enviar_r" type="submit">Publicar comentario</button></center>
+                <button class="w3-button w3-green" name="enviar_r" id="enviar_r" type="submit">Publicar</button></center>
             </div>
         </form>
     </div>

@@ -1,3 +1,11 @@
+<style>
+.isDisabled{
+	cursor: not-allowed;
+	opacity: 0.5;
+  	pointer-events: none;
+  	text-decoration: none;
+}
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +14,15 @@
     <?php 
         include('includes/head.php');
         include('db/cargar_info.php');
+        if(!$_GET){
+			header('Location:myreactivo.php?pagina=1');
+		}
+
+		if($total_pages_result == 0){
+			$pag= "w3-hide";
+		}else{
+			$pag="";
+		}
     ?>
 </head>
 <body>
@@ -17,15 +34,13 @@
             		<tr>
               			<th>Pregunta</th>
               			<th>Imagen</th>
-						<th>Tipo de pregunta</th>
                         <th>Examen</th>
                         <th>&Aacute;rea</th>
-                        <th>Subarea</th>
+                        <th>Sub&aacute;rea</th>
 						<th>Justificaci&oacute;n</th>
 						<th>Comentario</th>
-						<th>Estado de la pregunta</th>
 						<th>Fecha y hora de registro</th>
-						<th>Alta</th>
+						<th>Estado</th>
             		</tr>
             	</thead>
             	<tbody>
@@ -35,16 +50,24 @@
                     ?>
             		            <tr>
                                     <td><?php echo $row['nombre']?></td>
-                                    <td><?php echo $row['imagen']?></td>
-                                    <td><?php echo $row['tipo']?></td>
+                                    <td><?php if($row['imagen'] == null || $row['imagen'] == ""){
+                                        echo "No hay imagen";
+                                    }else{
+                                        echo $row['imagen'];
+                                    }?></td>
                                     <td><?php echo $row['examen']?></td>
                                     <td><?php echo $row['area']?></td>
-					            	<td><?php echo $row['subareas']?></td>
-                                    <td><?php echo $row['justificacion']?></td>
-                                    <td><?php echo $row['comentario']?></td>
-                                    <td><?php echo $row['estado']?></td>  
-                                    <td><?php echo $row['f_registro']?></td>              	
-                                    <td><?php echo $row['academico']?></td>
+					            	<td><?php echo $row['subarea']?></td>
+                                    <td><?php if($row['justificacion'] == "" || $row['justificacion'] == null){
+                                            echo "No hay justifacion";
+                                        }else{
+                                            echo $row['justificacion'];
+                                        }?></td>
+                                    <td><?php echo $row['comentario']?></td>  
+                                    <td><?php echo $row['f_registro']?></td> 
+                                    <td><?php if($row['estado'] == 1){echo "Aprobado";}
+                                    if($row['estado'] == 2){echo "Pendiente";}
+                                    if($row['estado'] == 3){echo "Rechazado";}?></td>
             		            </tr>
                     <?php   }
                         }else{
@@ -65,6 +88,17 @@
                     <?php }?>
             	</tbody>
             </table>
+
+            <div class="w3-center">
+				<div class="w3-bar <?php echo $pag;?>">
+  					<a class="w3-button <?php echo $_GET['pagina']<=1 ? 'isDisabled' : ''?>" href="myreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">&laquo;</a>
+						<?php for($i=0;$i<$total_pages_result;$i++){?>
+  							<a href="myreactivo.php?pagina=<?php echo $i+1?>" class="w3-button <?php echo $_GET['pagina']==$i+1 ? 'w3-green' : ''?>"><?php echo $i+1?></a>
+						<?php }?>	  
+  					<a href="myreactivo.php?pagina=<?php echo $_GET['pagina']+1?>" class="w3-button <?php echo $_GET['pagina']>=$total_pages_result ? 'isDisabled' : ''?>">&raquo;</a>
+				</div>
+			</div>
+
 		</div>
     </div>
 </body>
