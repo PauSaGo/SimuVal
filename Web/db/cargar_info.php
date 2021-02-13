@@ -1,4 +1,4 @@
-<?php  
+ <?php  
     error_reporting(0);
     require("db/conexion.php");
     session_start();
@@ -46,10 +46,10 @@
         GROUP_CONCAT(DISTINCT r.justificacion ORDER BY r.justificacion ASC SEPARATOR ', *') as justresp FROM preguntas as p 
         INNER JOIN examen as e ON e.id = p.id_examen INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
         INNER JOIN respuestas as r ON r.id_pregunta = p.id WHERE p.id_usuario = ".$_SESSION['id']." GROUP BY P.nombre LIMIT ".$offset.", ".$no_of_records_per_page." ");*/
-        $myexamen = mysqli_query($conexion, "SELECT p.id,p.nombre, p.imagen, p.tipo, p.justificacion, p.estado, p.f_registro, e.nombre as examen, 
+        $myexamen = mysqli_query($conexion, "SELECT p.id,p.nombre, p.imagen, p.tipo, p.justificacion, p.estado, p.f_registro, e.nombre as examen, u.nombres as usuario,
         a.nombre as area, s.nombre as subarea, GROUP_CONCAT(DISTINCT r.nombre ORDER BY r.nombre ASC SEPARATOR ', *') as respuestas, 
         GROUP_CONCAT(DISTINCT r.justificacion ORDER BY r.justificacion ASC SEPARATOR ', *') as justresp FROM preguntas as p 
         INNER JOIN examen as e ON e.id = p.id_examen INNER JOIN areas as a ON a.id = p.id_area INNER JOIN subareas as s ON s.id = p.id_subarea 
-        INNER JOIN respuestas as r ON r.id_pregunta = p.id WHERE p.id_usuario NOT IN (".$_SESSION['id'].") GROUP BY p.id LIMIT ".$start.", ".$no_of_records_per_page." ");
+        INNER JOIN respuestas as r ON r.id_pregunta = p.id INNER JOIN usuarios as u ON u.id = p.id_usuario WHERE p.id_usuario NOT IN (".$_SESSION['id'].") GROUP BY p.id LIMIT ".$start.", ".$no_of_records_per_page." ");
     }
 ?>

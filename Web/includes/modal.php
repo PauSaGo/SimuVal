@@ -62,10 +62,6 @@
                         <input class="w3-input" type="date" id="f_nacimiento" name="f_nacimiento" required>
                     </div>
                 </div>
-                <div class="w3-col s12 m6 l6" id="div_no_trabajador" style="display:none">
-                    <label><b>Número de trabajador</b></label>
-                    <input class="w3-input" type="number" id="no_trabajador" name="no_trabajador">
-                </div>
                 <div id="datos_academicos" style="display:none">
                     <div class="w3-col s12 m6 l6">
                         <label><b>Número de cuenta</b></label>
@@ -86,7 +82,12 @@
                             <option value="9">9no semestre</option>
                         </select>
                     </div>
-                    <div class="w3-col s12 m12 l12">
+                </div>
+                <div class="w3-col s12 m6 l6" id="div_no_trabajador" style="display:none;">
+                        <label><b>Número de trabajador</b></label>
+                        <input class="w3-input" type="number" id="no_trabajador" name="no_trabajador">
+                </div>
+                <div class="w3-col s12 m12 l12" id="div_facultad" style="display:none">
                         <label for="facultad"><b>Facultad</b></label>
                         <select OnChange="facultad_s()" id="facultad" name="facultad">
                             <option value="" disabled selected> -Seleccione una facultad- </option>
@@ -124,7 +125,6 @@
                             <option value="3">Licenciatura en Oceanología</option>
                         </select>
                     </div>
-                </div>
                 <center>
                     <button onclick="document.getElementById('modal_registro').style.display='none'" type="button" style="width:50%" class="w3-button w3-red">Cancel</button>
                     <button class="w3-button w3-green" name="btn_registo" type="submit" style="display:none;width:50%" id="btn_registo">Registrarse</button> 
@@ -243,11 +243,13 @@
             document.getElementById("datos_personales").style.display='block';
             document.getElementById("datos_academicos").style.display='block';
             document.getElementById("div_no_trabajador").style.display='none';
+            document.getElementById("div_facultad").style.display='block';
         }else if(y=='2' || y=='3'){
             document.getElementById("datos_personales").style.display='block';
             document.getElementById("datos_academicos").style.display='none';
             document.getElementById("btn_registo").style.display='block';
             document.getElementById("div_no_trabajador").style.display='block';
+            document.getElementById("div_facultad").style.display='block';
         }
     }
         

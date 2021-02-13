@@ -3,6 +3,12 @@ table{
 	border: 1px solid #FF9100;
 	border-radius: 10px;
 }
+.isDisabled{
+	cursor: not-allowed;
+	opacity: 0.5;
+  	pointer-events: none;
+  	text-decoration: none;
+}
 </style>
 
 <!DOCTYPE html>
@@ -18,8 +24,11 @@ table{
 			header('Location:checkreactivo.php?pagina=1');
 		}
 
-		$array = ['a','b','c','d'];
-		$i=0;
+		if($total_pages == 0){
+			$pag= "w3-hide";
+		}else{
+			$pag="";
+		}
     ?>
 </head>
 <body>
@@ -29,15 +38,15 @@ table{
 			<table class="w3-table w3-striped w3-bordered">
             	<thead>
             		<tr>
+						<th>Propuesto</th>
                         <th>Examen</th>
-              			<th>Preg&uacute;nta</th>                    
-                        <th>Tipo de pregunta</th>
+              			<th>Preg&uacute;nta</th>  
+						<th>Imagen</th>
                         <th>Justificaci&oacute;n</th>
               			<th>Respuestas</th>
                         <th>Justificaci&oacute;n</th>
                         <th>&Aacute;rea</th>
 						<th>Subarea(s)</th>
-                        <th>Imagen</th>
 						<th>Fecha publicada</th>
                         <th>Estado</th>
                         <th>Acciones</th>						
@@ -50,9 +59,11 @@ table{
 						while($row = mysqli_fetch_array($myexamen)){
 					?>
             		<tr>
+						<td><?php echo $row['usuario'];?></td>
                 		<td><?php echo $row['examen']?></td>
                         <td><?php echo $row['nombre']?></td>
-                        <td><?php echo $row['tipo']?></td>
+                        <td><?php if($row['imagen'] == null){echo 'No hay imagen';}
+						else{echo $row['imagen'];}?></td>
                         <td><?php  if($row['justificacion'] == null){
 							echo 'No hay justificación';
 							}else{
@@ -63,7 +74,6 @@ table{
 						<td><?php echo $row['justresp']?></td>
 						<td><?php echo $row['area']?></td>
 						<td><?php echo $row['subarea']?></td>
-						<td><?php echo $row['imagen']?></td>
 						<td><?php echo $row['f_registro']?></td>
 						<td><?php if($row['estado'] == 1){
 							echo 'Aprobado';
@@ -86,33 +96,14 @@ table{
             	</tbody>
             </table>
 
-			<nav aria-label="Page navigation my-5">
-            	<ul class="pagination justify-content-center">
-            	  <li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">Previous</a></li>
-            	  <?php for($i=0;$i<$numero;$i++){?>
-            	      <li class="page-item <?php echo $_GET['pagina']==$i+1 ? 'active' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $i+1?>"><?php echo $i+1?></a></li>
-            	  <?php }?>
-            	  <li class="page-item <?php echo $_GET['pagina']>=$numero ? 'disabled' : ''?>"><a class="page-link" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']+1?>">Next</a></li>
-            	</ul>
-            </nav>
-
-			<!-- ESTE NOOO <ul class="pagination">
-        		<li><a href="?pageno=1">First</a></li>
-        		<li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-            		<a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
-        		</li>
-        		<li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-            		<a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
-        		</li>
-        		<li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-    		</ul>-->
-
-			<div class="w3-bar">
-  				<a class="w3-button <?php echo $_GET['pagina']<=1 ? 'w3-disabled' : ''?>" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">&laquo;</a>
-					<?php for($i=0;$i<$total_pages;$i++){?>
-  						<a href="checkreactivo.php?pagina=<?php echo $i+1?>" class="w3-button <?php echo $_GET['pagina']==$i+1 ? 'w3-green' : ''?>"><?php echo $i+1?></a>
-					<?php }?>	  
-  				<a href="checkreactivo.php?pagina=<?php echo $_GET['pagina']+1?>" class="w3-button">&raquo;</a>
+			<div class="w3-center">
+				<div class="w3-bar <?php echo $pag;?>">
+  					<a class="w3-button <?php echo $_GET['pagina']<=1 ? 'isDisabled' : ''?>" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">&laquo;</a>
+						<?php for($i=0;$i<$total_pages;$i++){?>
+  							<a href="checkreactivo.php?pagina=<?php echo $i+1?>" class="w3-button <?php echo $_GET['pagina']==$i+1 ? 'w3-green' : ''?>"><?php echo $i+1?></a>
+						<?php }?>	  
+  					<a href="checkreactivo.php?pagina=<?php echo $_GET['pagina']+1?>" class="w3-button <?php echo $_GET['pagina']>=$total_pages ? 'isDisabled' : ''?>">&raquo;</a>
+				</div>
 			</div>
 
 		</div>

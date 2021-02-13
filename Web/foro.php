@@ -13,7 +13,7 @@
     <?php include('includes/nav.php') ?>
     <div class="container">
         <h1><b>Foro</b></h1>
-        <h5>Te presentamos nuestro foro, este es un espacio donde puedes dar tus opiniones, sugerencias y comentarios acerca de nuestra pagina, sientete libre de comentar, es anonimo, a menos que gustes poner tu alias.</h5>
+        <h5>Te presentamos nuestro foro, este es un espacio donde puedes dar tus opiniones, sugerencias y comentarios acerca de nuestra página, sientete libre de comentar, es anónimo, a menos que gustes poner tu alias.</h5>
         <button onclick="document.getElementById('modal_comentario').style.display='block'" style="color:white" class="w3-btn myorange">Publicar nueva contribución</button><br><br>
 <button class="tablink" onclick="openPage('tab1', this, '#e0e0e0')" id="defaultOpen">Opiniones</button>
 <button class="tablink" onclick="openPage('tab2', this, '#e0e0e0')">Sugerencias</button>

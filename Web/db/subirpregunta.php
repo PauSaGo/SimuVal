@@ -3,9 +3,11 @@
     session_start();
 
     if(isset($_POST['success'])){
+        //$_POST = $filtro->process($_POST);
         $mensaje = $_POST['success'];
         $id = $_SESSION['id'];//id del usuario
         $pregunta = $_POST['pregunta'];
+        //$pregunta = filter_var($_POST['pregunta'], FILTER_SANITIZE_STRING);
         $justificacion = $_POST['justificacion'];
         $tipoPregunta = $_POST['tipo'];
         $examen = $_POST['examen'];

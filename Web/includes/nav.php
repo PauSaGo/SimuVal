@@ -6,7 +6,7 @@
     <li><a href="manual.php">Manual</a></li>
     <li><a href="foro.php">Foro</a></li>
     <?php if($_SESSION['tipo'] == 1): ?>
-        <li><a href="crearexamen.php">Nuevo examen</a></li>
+        <li><a href="crearexamen.php?ex=ini">Nuevo examen</a></li>
         <li><a href="historial.php">Historial</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 2): ?>

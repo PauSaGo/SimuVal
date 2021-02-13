@@ -49,22 +49,22 @@
                             while($row = mysqli_fetch_array($mypregunta)) {
                     ?>
             		            <tr>
-                                    <td><?php echo $row['nombre']?></td>
+                                    <td><?php echo htmlspecialchars($row['nombre'], ENT_QUOTES, 'UTF-8');?></td>
                                     <td><?php if($row['imagen'] == null || $row['imagen'] == ""){
                                         echo "No hay imagen";
                                     }else{
                                         echo $row['imagen'];
                                     }?></td>
-                                    <td><?php echo $row['examen']?></td>
-                                    <td><?php echo $row['area']?></td>
-					            	<td><?php echo $row['subarea']?></td>
+                                    <td><?php echo htmlspecialchars($row['examen'], ENT_QUOTES, 'UTF-8');?></td>
+                                    <td><?php echo htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8');?></td>
+					            	<td><?php echo htmlspecialchars($row['subarea'], ENT_QUOTES, 'UTF-8');?></td>
                                     <td><?php if($row['justificacion'] == "" || $row['justificacion'] == null){
                                             echo "No hay justifacion";
                                         }else{
                                             echo $row['justificacion'];
                                         }?></td>
-                                    <td><?php echo $row['comentario']?></td>  
-                                    <td><?php echo $row['f_registro']?></td> 
+                                    <td><?php echo htmlspecialchars($row['comentario'], ENT_QUOTES, 'UTF-8');?></td>  
+                                    <td><?php echo htmlspecialchars($row['f_registro'], ENT_QUOTES, 'UTF-8');?></td> 
                                     <td><?php if($row['estado'] == 1){echo "Aprobado";}
                                     if($row['estado'] == 2){echo "Pendiente";}
                                     if($row['estado'] == 3){echo "Rechazado";}?></td>
@@ -77,12 +77,10 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
 					            <td><center>No hay datos</center></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>  
-                                <td></td>              	
                                 <td></td>
             		        </tr>
                     <?php }?>
