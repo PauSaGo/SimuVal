@@ -135,7 +135,14 @@
         $descripcion = $_POST['descripcion'];
 
         mysqli_query($conexion,"INSERT INTO foro(tipo,contenido,alias) VALUES ('$tipo','$descripcion','$alias')");
-        echo '<script> window.location="foro.php";</script>';
+        echo '<script> 
+        Swal.fire({
+            icon: "success",
+            title: "Enviado",
+            text: "Se realizo con exito"
+        });
+        setTimeout(() => { window.location="foro.php"; }, 500);
+        </script>';
     } 
     
     if(isset($_POST['success'])){

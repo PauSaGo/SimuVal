@@ -7,7 +7,7 @@
     <li><a href="foro.php">Foro</a></li>
     <?php if($_SESSION['tipo'] == 1): ?>
         <li><a href="crearexamen.php?ex=ini">Nuevo examen</a></li>
-        <li><a href="historial.php">Historial</a></li>
+        <li><a href="historial.php?pagina=1">Historial</a></li>
     <?php endif;?> 
     <?php if($_SESSION['tipo'] == 2): ?>
         <li><a href="newreactivo.php">Redactar nueva pregunta</a></li>
