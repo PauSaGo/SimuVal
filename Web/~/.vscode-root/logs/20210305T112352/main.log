@@ -1,7 +1,0 @@
-[2021-03-05 11:23:53.107] [main] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/opt/lampp/htdocs/Web/~/.vscode-root/User'
-[2021-03-05 11:23:53.610] [main] [info] update#setState idle
-[2021-03-05 11:24:23.626] [main] [info] update#setState checking for updates
-[2021-03-05 11:24:33.648] [main] [error] Error: net::ERR_NAME_NOT_RESOLVED
-    at SimpleURLLoaderWrapper.<anonymous> (electron/js2c/browser_init.js:109:6508)
-    at SimpleURLLoaderWrapper.emit (events.js:315:20)
-[2021-03-05 11:24:33.649] [main] [info] update#setState idle
