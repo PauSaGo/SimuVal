@@ -4,8 +4,29 @@ option {
 }
 li{
     list-style-type: none;
-    margin: 5px auto;
 }
+
+.padre{ 
+    position: relative;
+}
+
+
+.properties{
+    /*
+    position: absolute;
+    top:80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    border: 1px solid purple;*/
+    position: relative;
+    top:50%;
+    margin-top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,16 +36,8 @@ li{
     <?php 
         include('includes/head.php');
         include('db/cargar_info.php');
-        //$num = mysqli_query($conexion,"SELECT COUNT(*) FROM preguntas WHERE estado = 1 AND id_examen= 1 AND id_area = 1 and id_subarea= 1");
         $num = mysqli_query($conexion,"SELECT COUNT(*) FROM preguntas WHERE estado = 1");
         $alert = mysqli_fetch_array($num)[0];
-        //include_once('db/generarexamen.php');
-
-        //$rows = 1;
-        //$start = ($_GET['pagina'] - 1) * $rows;
-        //$query = mysqli_query($conexion,"SELECT * FROM preguntas WHERE estado = 1 ORDER BY RAND()  LIMIT ".$start.",".$rows."");
-        //$total = 17;
-        //$pagination = ceil($total / $rows);
     ?>
 </head>
 <body>
@@ -36,7 +49,7 @@ li{
            echo "<form method='POST'>
             <div class='w3-section'>
                 <div class='w3-row w3-center'>
-                   <h2>Formulario de crear nuevo examen</h2>
+                   <h2>Nueva prueba</h2>
                     <div style='width:50%;margin:auto;text-align:center;'>
                         <label><b>Ex&aacute;men</b></label>
                         <select class='w3-select' name='examen' id='examen'>";
@@ -75,10 +88,9 @@ li{
             $s = $_GET['s'];
             $rows = 1;
             $start = ($numero - 1) * $rows;
-            echo '<section class="">
+            echo '<section class="w3-center">
             <div class="w3-section">
-                <div class="w3-row w3-center">
-                <form method="POST" action="db/generarexamen.php?ex=quiz&q='.$total.'&n='.$numero.'">';
+                <form method="POST" action="db/generarexamen.php?ex=quiz&q='.$total.'&n='.$numero.'&e="'.$exam.'&a='.$a.'&s='.$s.'>';
                 if($a != 0){
                     $pregunta = mysqli_query($conexion,"SELECT * FROM preguntas WHERE estado = 1 AND id_examen=$exam AND id_area=$a AND id_subarea=$s ORDER BY RAND() LIMIT ".$start.",".$rows."");
                 }else{
@@ -86,24 +98,126 @@ li{
                 }
                 while($row = mysqli_fetch_array($pregunta)){
                     $id = $row['id'];
-                    echo '<input class="w3-hide" type="tex" name="resp" value="'.$id.'">';
-                    echo '<h3>'.$row['nombre'].'</h3>';
+					$body = "";
+                    $tipo = $row['tipo'];
+					$ini = 1;
+					
+                    if($tipo == 1){
+                        $body .= $row['nombre'];
+                    }
+                    if($tipo == 2){
+                        $pregunta = explode(".",$row['nombre']);
+                        $body .= $pregunta[0].'.';
+                        $numbers = filter_var($row['nombre'], FILTER_SANITIZE_NUMBER_INT);
+                        $body .= '<br><br>';
+                        $data = implode(',',str_split($numbers));
+                        $separate = explode(',',$data);
+                        $body .= '<div class="properties"><div class="dentro">';
+                        for($i=2;$i<sizeof($separate)+2;$i++){
+                            $index = $i;
+                            $ans = array_filter(explode($index,$pregunta[$i]));
+                            $body .= '<li>'.$ini.'.-'.$ans[0].'</li>';
+                            $ini++;
+                        }
+                        $body .= '</div></div>';
+                    }
+                    if($tipo == 3){
+                        $pregunta = explode(".",$row['nombre']);
+                        $body .= $pregunta[0].'.';
+                        if($pregunta[1] == 1){
+                            $body .= '<br><br>';
+                            $body .= '<div class="properties"><div class="dentro">';
+                            for($i=2;$i<sizeof($pregunta); $i++){
+                                $ans = explode($i,$pregunta[$i]);
+                                $body.= '<li>'.$ini.'.-'.$ans[0].'</li>';
+                                $ini++;
+                            }
+                            $body .= '</div></div>';
+                        }else{
+                            $body .= $pregunta[1].'.';
+                            $body .= '<br><br>';
+                            filter_var($pregunta,FILTER_SANITIZE_STRING);
+                            $body .= '<div class="properties"><div class="dentro">';
+                            for($i=3;$i<sizeof($pregunta); $i++){
+                                $ans = explode($i,$pregunta[$i]);
+                                $body.= '<li>'.$ini.'.-'.preg_replace('/[0-9]+/', '',$ans[0]).'</li>';
+                                $ini++;
+                            }
+                            $body .= '</div></div>';
+                        }
+                    }
+                    if($tipo == 4){
+                        $numbers = filter_var($row['nombre'], FILTER_SANITIZE_NUMBER_INT);
+                        $data = implode(',',str_split($numbers));
+                        $numero = explode(',',$data);
+                        $pregunta = explode($numero[0],$row['nombre']);
+                        $preguntaP = explode('.',$pregunta[0]);
+                        //$body .= '<div class="properties"><ul>';
+                        for($i=0;$i<sizeof($preguntaP) - 1;$i++){
+                            $body .= '<li>'.$preguntaP[$i].'.'.'</li>';
+                        }
+                        //$body .= '</ul></div>';
+
+                        $datas = explode('2'.'.',$pregunta[1]);
+                        $body .= '1'.$datas[0].'<br>';
+                        $temp = $datas[1];
+
+                        //$body .= '<div class="properties"><ul>';
+                        for($i=2;$i<sizeof($numero)+1;$i++){
+                            $data = explode(($i+1).'.',$temp);
+                            if($i == sizeof($numero)){
+                                $data = explode('.',$temp);
+                                $body .= '<li>'.$i.'.'.$data[0].'</li><br>';
+                            }else{
+                                $body .= '<li>'.($i).'.'.$data[0].'<li>';
+                            }
+                            $temp = $data[1];
+                        }
+                        //$body .= '</ul></div>';
+
+                        $body .= '<br><br>'.$data[1].'.<br>';
+                        $array = array('cero','a)','b)','c)','d)','e)','f)','g)');
+                        $incisos = explode(')',$data[2]);
+                        //$body .= '<div class="properties"><ul>';
+                        for($i=1;$i<sizeof($incisos);$i++){
+                            $body .= '<li>'.$array[$i].substr($incisos[$i], 0, -1).'<li>';
+                        }
+                        //$body .= '</ul></div>';
+                        //$body .= preg_replace('/[0-9]+/', '', $preguntaP[$i]).'.'.'<br>';
+                        
+                    }
+                    if($tipo == 5){
+                        $body .= $row['nombre'];
+                    }
+
+                    echo '<input class="w3-hide" type="text" name="resp" value="'.$id.'">';
+                    echo '<div class="padre"><h3>'.
+                    $body
+                    .'</h3>';
                 }
                 $ans = mysqli_query($conexion,"SELECT * FROM respuestas WHERE id_pregunta = ".$id."");
+                echo '<div class="respuestas">';
                 while($rowans = mysqli_fetch_array($ans)){
-                    echo '<center><li><input type="radio" name="ans" value="'.$rowans['valor'].'">'.$rowans['nombre'].'</li></center>';
+                    echo '<input type="radio" name="ans" value="'.$rowans['valor'].'">'.$rowans['nombre'].'<br>';
                 }
-            echo '</div>
+                echo '</div></div>';
+            if($numero == $total){
+                echo '</div>
+                <button class="w3-button w3-green" type="submit" style="margin-top:20px;">Terminar examen</button></center></form>
+                </div>
+                </section>';
+            }else{
+                echo '
                 <button class="w3-button w3-green" type="submit" style="margin-top:20px;">Enviar</button></center></form>
-            </div>
-        </section>';
+                </div>
+                </section>';
+            }
         }
         ?>
     </div>
 <script>
 $(document).ready(function(){
     let pre = parseInt('<?php echo $alert;?>');
-    //let pre = "";
     $('#area').on('change',function(){
         $.ajax({
             type: 'POST',
@@ -116,7 +230,6 @@ $(document).ready(function(){
             success: function(result) {
                 document.getElementById('numero').placeholder="Max: "+result;
                 pre = parseInt(result);
-                //console.log(result);
             }
         })
         if($('#area').val() == 0){
@@ -138,35 +251,41 @@ $(document).ready(function(){
             success: function(result) {
                 document.getElementById('numero').placeholder= "Max: "+result;
                 pre = parseInt(result);
-                //console.log(result);
             }
         })
     })
 
     $('#empezar_examen').click(function(){
-        if($('#numero').val() > pre){
+        if($('#numero').val() == null || $('#numero').val() == ""){
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "La cantidad de preguntas es más que las que nosotros contamos :("
+                text: "Por favor ingrese la cantidad de preguntas."
             });
         }else{
-            $.ajax({
-                type: 'POST',
-                url: 'db/generarexamen.php',
-                data: {
-                    button: 'empezar_examen',
-                    num: $('#numero').val(),
-                    examen: $('#examen').val(),
-                    area: $('#area').val(),
-                    subarea: $('#subarea').val()
-                },
-                dataType: 'JSON',
-                success: function(result){
-                    //console.log(result.numero);
-                    window.location.href = "crearexamen.php?ex=quiz&q="+result.numero+"&n=1&e="+result.examen+"&a="+result.area+"&s="+result.subarea;
-                }
-            })
+            if($('#numero').val() > pre){
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "La cantidad de preguntas es más que las que nosotros contamos :("
+                });
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    url: 'db/generarexamen.php',
+                    data: {
+                        button: 'empezar_examen',
+                        num: $('#numero').val(),
+                        examen: $('#examen').val(),
+                        area: $('#area').val(),
+                        subarea: $('#subarea').val()
+                    },
+                    dataType: 'JSON',
+                    success: function(result){
+                        window.location.href = "crearexamen.php?ex=quiz&q="+result.numero+"&n=1&e="+result.examen+"&a="+result.area+"&s="+result.subarea;
+                    }
+                })
+            }
         }
     })
 })

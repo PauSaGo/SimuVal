@@ -1,6 +1,6 @@
 <style>
 table{
-	border: 1px solid #FF9100;
+	border: 2px solid #FF9100;
 	border-radius: 10px;
 }
 .isDisabled{
@@ -44,7 +44,6 @@ table{
 						<th>Imagen</th>
                         <th>Justificaci&oacute;n</th>
               			<th>Respuestas</th>
-                        <th>Justificaci&oacute;n</th>
                         <th>&Aacute;rea</th>
 						<th>Subarea(s)</th>
 						<th>Fecha publicada</th>
@@ -61,7 +60,89 @@ table{
             		<tr>
 						<td><?php echo $row['usuario'];?></td>
                 		<td><?php echo $row['examen']?></td>
-                        <td><?php echo $row['nombre']?></td>
+                        <td><?php 
+							//echo $row['nombre']
+							$tipo = $row['tipo'];
+							$body = "";
+							$ini = 1;
+
+							if($tipo == 1){
+								$body .= $row['nombre'];
+							}
+							if($tipo == 2){
+								$pregunta = explode(".",$row['nombre']);
+								$body .= $pregunta[0].'.';
+								$numbers = filter_var($row['nombre'], FILTER_SANITIZE_NUMBER_INT);
+								$body .= '<br><br>';
+								$data = implode(',',str_split($numbers));
+								$separate = explode(',',$data);
+								for($i=2;$i<sizeof($separate)+2;$i++){
+									$index = $i;
+									$ans = array_filter(explode($index,$pregunta[$i]));
+									$body .= $ini.'.-'.$ans[0].'<br>';
+									$ini++;
+								}
+							}
+							if($tipo == 3){
+								$pregunta = explode(".",$row['nombre']);
+								$body .= $pregunta[0].'.';
+								if($pregunta[1] == 1){
+									$body .= '<br><br>';
+									for($i=2;$i<sizeof($pregunta); $i++){
+										$ans = explode($i,$pregunta[$i]);
+										$body.= $ini.'.-'.$ans[0].'<br>';
+										$ini++;
+									}
+								}else{
+									$body .= $pregunta[1].'.';
+									$body .= '<br><br>';
+									filter_var($pregunta,FILTER_SANITIZE_STRING);
+									for($i=3;$i<sizeof($pregunta); $i++){
+										$ans = explode($i,$pregunta[$i]);
+										$body.= $ini.'.-'.preg_replace('/[0-9]+/', '',$ans[0]).'<br>';
+										$ini++;
+									}
+								}
+							}
+							if($tipo == 4){
+								$numbers = filter_var($row['nombre'], FILTER_SANITIZE_NUMBER_INT);
+								$data = implode(',',str_split($numbers));
+								$numero = explode(',',$data);
+								$pregunta = explode($numero[0],$row['nombre']);
+								$preguntaP = explode('.',$pregunta[0]);
+								for($i=0;$i<sizeof($preguntaP) - 1;$i++){
+									$body .= $preguntaP[$i].'.'.'<br>';
+								}
+
+								$datas = explode('2'.'.',$pregunta[1]);
+								$body .= '1'.$datas[0].'<br>';
+								$temp = $datas[1];
+
+								for($i=2;$i<sizeof($numero)+1;$i++){
+									$data = explode(($i+1).'.',$temp);
+									if($i == sizeof($numero)){
+										$data = explode('.',$temp);
+										$body .= $i.'.'.$data[0];
+									}else{
+										$body .= ($i).'.'.$data[0].'<br>';
+									}
+									$temp = $data[1];
+								}
+
+								$body .= '<br><br>'.$data[1].'.<br>';
+								$array = array('cero','a)','b)','c)','d)','e)','f)','g)');
+								$incisos = explode(')',$data[2]);
+								for($i=1;$i<sizeof($incisos);$i++){
+									$body .= $array[$i].substr($incisos[$i], 0, -1).'<br>';
+								}
+								//$body .= preg_replace('/[0-9]+/', '', $preguntaP[$i]).'.'.'<br>';
+								
+							}
+							if($tipo == 5){
+								$body .= $row['nombre'];
+							}
+							echo $body;
+						?></td>
                         <td><?php if($row['imagen'] == null){echo 'No hay imagen';}
 						else{echo $row['imagen'];}?></td>
                         <td><?php  if($row['justificacion'] == null){
@@ -70,8 +151,15 @@ table{
 								echo $row['justificacion'];
 							}
 							?></td>
-                		<td><?php echo $row['respuestas']?></td>
-						<td><?php echo $row['justresp']?></td>
+                		<td><?php 
+						$body = explode(", *",$row['respuestas']);
+
+						echo 'A) '.$body[0].
+						'<br><br>'.'B) '.$body[1].
+						'<br><br>'.'C) '.$body[2].
+						'<br><br>'.'D) '.$body[3];
+
+						?></td>
 						<td><?php echo $row['area']?></td>
 						<td><?php echo $row['subarea']?></td>
 						<td><?php echo $row['f_registro']?></td>
@@ -82,7 +170,10 @@ table{
 							}elseif($row['estado'] == 3){
 								echo 'Rechazado';
 							}?></td>
-						<td class="w3-hide"><?php echo $row['id']?></td>
+						<td class='w3-hide'><?php echo $row['tipo'];?></td>
+						<td class='w3-hide'><?php echo $row['respuestas'];?></td>
+						<td class='w3-hide'><?php echo $row['justresp'];?></td>
+						<td class="w3-hide"><?php echo $row['id'];?></td>
 						<td>
 							<button type="button" class="w3-btn">
 								<span class="material-icons">create</span>
@@ -96,7 +187,7 @@ table{
             	</tbody>
             </table>
 
-			<div class="w3-center">
+			<div class="w3-center" style="margin-top:10px;">
 				<div class="w3-bar <?php echo $pag;?>">
   					<a class="w3-button <?php echo $_GET['pagina']<=1 ? 'isDisabled' : ''?>" href="checkreactivo.php?pagina=<?php echo $_GET['pagina']-1?>">&laquo;</a>
 						<?php for($i=0;$i<$total_pages;$i++){?>
@@ -134,17 +225,18 @@ table{
 			}).get();
 
 			//Empezamos a parsear(acomodar) los datos con sus respectivos inputs
-			$('#examen').val(data[0]);
-			$('#pregunta').val(data[1]);
-			$('#tipo').val(data[2]);
-			$('#justificacion').val(data[3]);
+			$('#examen').val(data[1]);
+			$('#tipo').val(data[10]);
+			$('#pregunta').val(data[2]);
+			$('#justificacion').val(data[4]);
 			//$('#respuesta').val(data[4]);
 			//Separamos los datos que estan marcados por el punto y asterisco y cada dato lo ponemos con sus respectivos inputs, en este caso separamos cada pregunta
-			var resp = data[4].split(', *');
+			var resp = data[11].split(', *');
 			var resp0 = dataempty(resp[0]);
 			var resp1 = dataempty(resp[1]);
 			var resp2 = dataempty(resp[2]);
 			var resp3 = dataempty(resp[3]);
+
 			$('#respuesta1').val(resp0);
 			$('#respuesta2').val(resp1);
 			$('#respuesta3').val(resp2);
@@ -152,11 +244,12 @@ table{
 
 			//$('#justresp').val(data[5]);
 			//Hacemos lo mismo que las preguntas pero ahora con las justificaciones de cada pregunta
-			var just = data[5].split(', *');
+			var just = data[12].split(', *');
 			var just0 = dataempty(just[0]);
 			var just1 = dataempty(just[1]);
 			var just2 = dataempty(just[2]);
 			var just3 = dataempty(just[3]);
+
 			$('#justresp1').val(just0);
 			$('#justresp2').val(just1);
 			$('#justresp3').val(just2);
@@ -164,9 +257,9 @@ table{
 
 			$('#area').val(data[6]);
 			$('#subarea').val(data[7]);
-			$('#imagen').val(data[8]);
-			$('#registro').val(data[9]);
-			var estado = (data[10]);
+			$('#imagen').val(data[3]);
+			$('#registro').val(data[8]);
+			var estado = (data[9]);
 			//$('#estado').val(estado);
 			//Obtenemos el valor del estado y dependiendo del estado es el primero en la fina para que aparezca el estado que esta y el usuario decida cambiarlo o no
 			if(estado=="Aprobado"){
@@ -190,7 +283,7 @@ table{
 				$('#estado').append($('<option>').val('2').text('Pendiente'));
 			}
 			//Esto nos sirve para identificar el id de cada pregunta y poderlo actualizarlo si el usuario hizo algún cambio.
-			$('#idpregunta').val(data[11]);
+			$('#idpregunta').val(data[13]);
 		
 		});
 

@@ -35,21 +35,21 @@
         <div class="w3-row">
             <div class="w3-third w3-container">
                 <center>
-                    <img src="https://img.icons8.com/bubbles/100/000000/student-male.png"/><br>
+                    <img src="./images/student-male.png"/><br>
                     <h6><b>¿Estudiante?</b></h6>
                 </center>
                 <p>¡Acabas de encontrar la plataforma ideal! Contamos con un entrenador/simulador que se adapta a tus necesidades.</p>
             </div>
             <div class="w3-third w3-container">
                 <center>
-                   <img src="https://img.icons8.com/bubbles/100/000000/bookmark.png"/><br>
+                   <img src="./images/bookmark.png"/><br>
                    <h6><b>¿Docente?</b></h6>
                 </center>
                 <p>En esta plataforma podrás redactar rectivos acorde a las necesidades de tus estudiantes.</p>
             </div>
             <div class="w3-third w3-container">
                 <center>
-                   <img src="https://img.icons8.com/bubbles/100/000000/school.png"/><br>
+                   <img src="./images/school.png"/><br>
                    <h6><b>¿Academia?</b></h6>
                 </center>
                 <p>Aqui podrás revisar, editar y aprobar reactivos. Tus conocimientos son la clave para mantener la calidad de esta plataforma.</p>
@@ -60,7 +60,7 @@
             <div class="w3-half w3-container">
                 <div class="w3-row">
                     <div class="w3-col" style="width:50%;">
-                        <img style="width:100%" src="https://img.icons8.com/bubbles/100/000000/approval.png"/>
+                        <img style="width:100%" src="./images/approval.png"/>
                     </div>
                     <div class="w3-col" style="width:50%">
                         <h4><b>Iniciar sesión</b></h4>
@@ -71,7 +71,7 @@
             <div class="w3-half w3-container">
                 <div class="w3-row">
                     <div class="w3-col" style="width:50%;">
-                        <img style="width:100%" src="https://img.icons8.com/bubbles/100/000000/todo-list.png"/>
+                        <img style="width:100%" src="./images/todo-list.png"/>
                     </div>
                     <div class="w3-col" style="width:50%">
                         <h4><b>Registrarse</b></h4>
@@ -83,7 +83,7 @@
             <div class="w3-half center-div w3-container">
                 <div class="w3-row">
                     <div class="w3-col" style="width:50%;">
-                        <img style="width:100%" src="https://img.icons8.com/bubbles/100/000000/download.png"/>
+                        <img style="width:100%" src="./images/download.png"/>
                     </div>
                     <div class="w3-col" style="width:50%">
                         <h4><b>Descargar App</b></h4>

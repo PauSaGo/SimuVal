@@ -1,5 +1,5 @@
 <ul class="nav" style="width:20%">
-    <a href="index.php"><img id="logo" src="images/logo_nombre.png"></a>
+    <?php if(!$_SESSION['numero']){?><a href="index.php"><img id="logo" src="images/logo_nombre.png"></a><?php }else{?><a href="manual.php"><img id="logo" src="images/logo_nombre.png"></a><?php }?>
     <?php if(!$_SESSION['numero']) {?>
     <li><a href="index.php">Inicio</a></li>
     <?php }?>

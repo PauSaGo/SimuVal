@@ -49,7 +49,9 @@
                             while($row = mysqli_fetch_array($mypregunta)) {
                     ?>
             		            <tr>
-                                    <td><?php echo htmlspecialchars($row['nombre'], ENT_QUOTES, 'UTF-8');?></td>
+                                    <td><?php 
+                                    $pregunta = explode("?",$row['nombre']);
+                                    echo htmlspecialchars($pregunta[0], ENT_QUOTES, 'UTF-8');?></td>
                                     <td><?php if($row['imagen'] == null || $row['imagen'] == ""){
                                         echo "No hay imagen";
                                     }else{
